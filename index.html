@@ -377,12 +377,23 @@
             </div>
           </div>
 
+<div class="space-y-2.5 acct-row">
+            <div class="flex items-center justify-center gap-3">
+              <span class="inline-block bg-blue-700 text-white text-[11px] font-head font-600 uppercase tracking-wide px-3 py-1 rounded">Founders Account</span>
+              </div>
+
           <div class="space-y-2.5 acct-row">
             <div class="flex items-center justify-between gap-3">
               <span class="text-blue-500 text-[11px] font-head font-600 uppercase tracking-wide flex-shrink-0">Bank</span>
               <!-- ✅ REPLACE: e.g. First Bank, GTBank, Access Bank -->
               <span class="font-head font-700 text-gray-800 text-[13px] text-right"> Santander  
-  Sort Code: 09-01-28</span>
+  </span></div>
+  <div class="space-y-2.5 acct-row">
+            <div class="flex items-center justify-between gap-3">
+  <span class="text-blue-500 text-[11px] font-head font-600 uppercase tracking-wide flex-shrink-0">Sort Code</span>
+              <!-- ✅ REPLACE: e.g. First Bank, GTBank, Access Bank -->
+              <span class="font-head font-700 text-gray-800 text-[13px] text-right">
+ 09-01-28</span>
             </div>
 
             <div class="flex items-center justify-between gap-3">
@@ -638,7 +649,7 @@
             Support This Event
           </a>
           <!-- ✅ REPLACE href — WhatsApp volunteer group -->
-          <a href="https://chat.whatsapp.com/XXXXXXXXXXXXXXXXXXXXXXX" target="_blank" class="btn btn-outline border-white/30 text-white hover:bg-white hover:text-blue-800 text-[14px] px-6 py-3.5">
+          <a href="https://chat.whatsapp.com/IoQyejNTCdRElPKduB8VjQ" target="_blank" class="btn btn-outline border-white/30 text-white hover:bg-white hover:text-blue-800 text-[14px] px-6 py-3.5">
             Volunteer for Dec
           </a>
         </div>
@@ -693,7 +704,7 @@
         Donate via WhatsApp
       </a>
       <!-- ✅ REPLACE href — volunteer group link -->
-      <a href="https://chat.whatsapp.com/XXXXXXXXXXXXXXXXXXXXXXX" target="_blank" class="btn btn-outline text-[14px] px-6 py-3.5">
+      <a href="https://chat.whatsapp.com/IoQyejNTCdRElPKduB8VjQ" target="_blank" class="btn btn-outline text-[14px] px-6 py-3.5">
         Join Volunteer Group
       </a>
     </div>
@@ -712,6 +723,9 @@
       <p class="text-gray-400 mt-3 text-[14px]">Moments from our outreach events, school visits, and community programs.</p>
     </div>
     <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" style="grid-auto-rows:200px;"></div>
+    <div class="mt-8 text-center">
+      <button id="cloudinary-view-all-btn" class="btn btn-outline text-[14px] px-6 py-3">View all images</button>
+    </div>
   </div>
 </section>
 
@@ -772,7 +786,7 @@
                   <svg class="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </span>
                 <!-- ✅ REPLACE with real address -->
-                <p class="text-white/80 text-sm">Nigeria<br/>Academy Hall Montessori School, Aseese, Ogun State.</p>
+                <p class="text-white/80 text-sm">Nigeria<br/>6 Oyebi Close, Aseese, Ogun State.</p>
               </li>
               <li class="flex items-center gap-3.5">
                 <span class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
@@ -951,16 +965,28 @@
  */
 
 /* ── Gallery images ── */
+const cloudName = 'do2b2qnob'; // Replace with your Cloudinary cloud name
+const cloudGalleryTag = 'bhm'; // Replace with the tag or folder name you use for gallery images
+const cloudGalleryListUrl = `https://res.cloudinary.com/${cloudName}/image/list/${cloudGalleryTag}.json`;
+
 const galleryImages = [
   { url: 'Images/image1.jpg', alt: 'Food distribution outreach', tall: true },
   { url: 'Images/image2.jpg', alt: 'Children receiving support', tall: false },
   { url: 'Images/image3.jpg', alt: 'Community outreach event', tall: false },
-  { url: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=600&auto=format&fit=crop&q=75', alt: 'Volunteers at work', tall: true },
-  { url: 'https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=600&auto=format&fit=crop&q=75', alt: 'School supply donation', tall: false },
-  { url: 'https://images.unsplash.com/photo-1617450365226-9bf28c04e130?w=600&auto=format&fit=crop&q=75', alt: 'December 31 event', tall: false },
-  { url: 'https://images.unsplash.com/photo-1526976668912-1a811878dd37?w=600&auto=format&fit=crop&q=75', alt: 'Helping families', tall: false },
+  { url: 'Images/clo3.jpeg', alt: 'Volunteers at work', tall: true },
+  { url: 'Images/clo.jpeg', alt: 'School supply donation', tall: false },
+  { url: 'Images/clo1.jpeg', alt: 'December 31 event', tall: false },
+  { url: 'Images/clo2.jpeg', alt: 'Helping families', tall: false },
   { url: 'Images/crew.jpg', alt: 'Outreach volunteers', tall: false },
 ];
+
+function cloudinaryImageUrl(resource) {
+  if (resource.secure_url) return resource.secure_url;
+  if (resource.public_id && resource.format) {
+    return `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto,w_800/${resource.public_id}.${resource.format}`;
+  }
+  return '';
+}
 
 function renderGallery() {
   const grid = document.getElementById('gallery-grid');
@@ -975,6 +1001,45 @@ function renderGallery() {
     grid.appendChild(wrap);
   });
   observeAll();
+}
+
+async function fetchCloudinaryGallery() {
+  const button = document.getElementById('cloudinary-view-all-btn');
+  if (!button) return;
+  button.disabled = true;
+  const originalText = button.textContent;
+  button.textContent = 'Loading...';
+
+  try {
+    const response = await fetch(cloudGalleryListUrl);
+    if (!response.ok) throw new Error(`Cloudinary list fetch failed (${response.status})`);
+    const data = await response.json();
+    const resources = Array.isArray(data.resources) ? data.resources : data;
+    if (!resources?.length) throw new Error('No images found. Verify your Cloudinary gallery tag.');
+
+    const grid = document.getElementById('gallery-grid');
+    grid.innerHTML = '';
+
+    resources.forEach((resource, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'g-img reveal';
+      wrap.style.transitionDelay = `${i * 0.06}s`;
+      const el = document.createElement('img');
+      el.src = cloudinaryImageUrl(resource);
+      el.alt = resource.public_id || 'Cloudinary gallery image';
+      el.loading = 'lazy';
+      wrap.appendChild(el);
+      grid.appendChild(wrap);
+    });
+
+    observeAll();
+  } catch (error) {
+    console.error(error);
+    alert('Unable to load Cloudinary images. Check your cloud name and gallery tag in the script.');
+  } finally {
+    button.disabled = false;
+    button.textContent = originalText;
+  }
 }
 
 /* ── Dec 31 countdown ── */
@@ -1134,6 +1199,11 @@ document.addEventListener('DOMContentLoaded', () => {
   runCounters();
   initProgress();
   runCountdown();
+
+  const viewAllBtn = document.getElementById('cloudinary-view-all-btn');
+  if (viewAllBtn) {
+    viewAllBtn.addEventListener('click', fetchCloudinaryGallery);
+  }
 });
 </script>
 </body>
